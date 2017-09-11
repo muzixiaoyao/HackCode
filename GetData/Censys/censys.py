@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+﻿# -*- coding: UTF-8 -*-
 # https://www.censys.io/api/v1/search/ipv4
 # post:{"query": "keyword", "page": 1, "fields": ["ip", "protocols", "location.country"]}
 # query指的是相应的搜索语句;page代表返回的页码;fields指的是你希望返回值中包含哪些字段
