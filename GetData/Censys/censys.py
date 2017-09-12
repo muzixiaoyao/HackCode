@@ -58,5 +58,5 @@ if __name__ == '__main__':
             page += 1
             time.sleep(1)
             for i in iplist:
-                f.write(i + '\n')
+                f.write("http://"+ i + '''/''' + '\n')
                 print i
