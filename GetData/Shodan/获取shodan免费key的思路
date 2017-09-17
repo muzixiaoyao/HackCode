@@ -1,0 +1,1 @@
+github上有很多代码上传上去里面有shodan的key，其中肯定会有漏网的VIP key，可以用以下脚本检测shodan key是否是vip
