@@ -60,3 +60,4 @@ if __name__ == '__main__':
             for i in iplist:
                 f.write("http://"+ i + '''/''' + '\n')
                 print i
+    f.close()
