@@ -1,0 +1,31 @@
+文章作者：langouster
+信息来源：邪恶八进制信息安全团队（www.eviloctal.com）
+
+http://forum.eviloctal.com/read-htm-tid-25645-fpage-2-toread--page-1.html
+
+功能函数说明：
+cmdshell 执行cmd;
+  downloader 下载者,到网上下载指定文件并保存到指定目录;
+  open3389 通用开3389终端服务,可指定端口(不改端口无需重启);
+  backshell 反弹Shell;
+  ProcessView 枚举系统进程;
+  KillProcess 终止指定进程;
+  regread 读注册表;
+  regwrite 写注册表;
+  shut 关机,注销,重启;
+  about 说明与帮助函数;
+一、功能：利用MYSQL的自定义函数功能（再次声明：利用MYSQL UDF提权绝非是溢出，而是MYSQL本身的一个功能），将MYSQL账号转化为系统system权限。
+
+二、适用场合：1.目标系统是Windows(Win2000,XP,Win2003)；2.你已经拥有MYSQL的某个用户账号，此账号必须有对mysql的insert和delete权限以创建和抛弃函数(MYSQL文档原语)。
+
+三、使用帮助：
+  第一步：将PHP文件上传到目标机上，填入你的MYSQL账号经行连接。
+第二步：连接成功后，导出DLL文件，导出时请勿必注意导出路径（一般情况下对任何目录可写，无需考虑权限问题），对于MYSQL5.0以上版本，你必须将DLL导出到目标机器的系统目录(win 或 system32)，否则在下一步操作中你会看到"No paths allowed for shared library"错误。
+第三步：使用SQL语句创建功能函数。语法：Create Function 函数名（函数名只能为下面列表中的其中之一） returns string soname '导出的DLL路径'；对于MYSQL5.0以上版本，语句中的DLL不允许带全路径，如果你在第二步中已将DLL导出到系统目录，那么你就可以省略路径而使命令正常执行，否则你将会看到"Can't open shared library"错误，这时你必须将DLL重新导出到系统目录。 
+第四步：正确创建功能函数后，你就可以用SQL语句来使用这些功能了。语法：select 创建的函数名('参数列表')； 每个函数有不同的参数，你可以使用select 创建的函数名('help')；来获得指定函数的参数列表信息。
+
+
+Create Function cmdshell returns string soname 'udf.dll'
+
+ 第五步：使用完成后你可能需要删除在第二步中导出的DLL，但在删除DLL前请先删除你在第三步中创建的函数，否则删除操作将失败，删除第三步中创建的函数的SQL语句为：drop function 创建的函数名。
+

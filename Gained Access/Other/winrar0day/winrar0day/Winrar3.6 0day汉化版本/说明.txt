@@ -1,0 +1,24 @@
+雕牌
+qq:7981710
+blog:http://52cmd.cn
+
+
+WinRAR 3.x LHA 溢出漏洞利用工具 seer汉化版
+Code by 雕牌，Welcome to http://www.rootkit.com.cn
+
+用法：       rar [选项] <Exe文件>
+
+[选项]
+    /a <LHZFile>   追加LHZ(lha)文件
+    /o <OutFile>   生成文件名，默认为0day.zip
+    /t <OSType>    选择系统类型，默认为0
+
+[系统类型]
+        0       0x7ffa4512      CN    2K/XP/2K3    ALL
+        1       0x7ffa24ce      TW    2K/XP/2K3    ALL
+        2       0x7ffa82a4      KR    2K/XP/2K3    ALL
+        3       0x7801f4fb      ALL   2K           SP3/SP4
+        4       0x77c5bafc      EN    XP           SP0/SP1
+        5       0x77c60afc      EN    XP           SP2
+
+

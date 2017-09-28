@@ -1,0 +1,11 @@
+
+Eop  Win7 x86 成功 08 R2失败 其它未测
+
+Usage: ms16-016_win7.exe "whoami"
+
+需eop.exe和shellcode.dll 放在一起
+
+
+by K8拉登哥哥 20160216
+
+win7下运行 BSod.exe 会蓝屏

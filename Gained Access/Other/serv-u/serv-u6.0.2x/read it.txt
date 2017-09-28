@@ -1,0 +1,14 @@
+由xiaolu原码修改，支持端口号和用户名和密码的改变，支持6.0.0.2及以下的serv-u。
+格式：myservu 端口号 "命令" <ok.txt
+ok.txt内容：
+用户名（或ok）
+密码（或ok）
+若用户名为默认的：localadministrator 则可以简单输入ok
+若密码为默认的： #l@$ak#.lk;0@P 则可以简单输入ok
+当然也可以直接输入用户名和密码 
+myservu 端口号 "命令" 
+by：小虾米 
+欢迎访问朋友的家http://bbs.pysky.net/
+
+
+

